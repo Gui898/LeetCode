@@ -4,20 +4,16 @@ public class Main {
 
     public static void main(String[] args) {
         int[] arr = {0,1,0,3,12};
-        moveZeroes(arr);
-        System.out.println(Arrays.toString(arr));
+        System.out.println(isSubsequence("abc", "ahbgdc"));
     }
 
-    public static void moveZeroes(int[] nums) {
-        int j = 0;
-
-        for (int i = 0; i < nums.length; i++) {
-            if(nums[i] != 0){
-                int temp = nums[j];
-                nums[j] = nums[i];
-                nums[i] = temp;
-                j++;
-            }
+    public static boolean isSubsequence(String s, String t) {
+        int i=0;
+        int j=0;
+        while(i<s.length() && j<t.length()){
+            if(s.charAt(i)==t.charAt(j)) i++;
+            j++;
         }
+        return i==s.length();
     }
 }
