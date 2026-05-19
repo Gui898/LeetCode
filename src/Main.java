@@ -1,40 +1,27 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 public class Main {
 
     public static void main(String[] args) {
-        int[] arr = {2,3,5,1,3};
+        int[] arr = {1,0,0,0,0,1};
 
-        System.out.println(lengthOfLastWord("   fly me   to   the moon  "));
+        System.out.println(mergeAlternately("abcd", "pq"));
 
     }
 
-    public static int lengthOfLastWord(String s) {
-        int size = s.length();
-        boolean hasWord = false;
-        int val = 0;
+    public static String mergeAlternately(String word1, String word2) {
+        StringBuilder ans = new StringBuilder();
 
-        if(size == 0) return 0;
+        int val = Math.max(word1.length(), word2.length());
 
-        for (int i = size-1; i >= 0; i--) {
-
-            if(s.charAt(i) != ' '){
-                val++;
-                hasWord = true;
-            }else{
-                hasWord = false;
+        for(int i = 0; i < val; i++){
+            if(i < word1.length()){
+                ans.append(word1.charAt(i));
             }
-
-            if(val != 0 && !hasWord){
-                break;
+            if(i < word2.length()){
+                ans.append(word2.charAt(i));
             }
         }
 
-        return val;
+        return ans.toString();
     }
-
 
 }
