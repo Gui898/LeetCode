@@ -3,24 +3,31 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        int[] arr = {1,0,0,0,0,1};
-
-        System.out.println(reverseWords("a good   example"));
-
+        int[] arr = {5};
+        System.out.println(findMaxAverage(arr, 1));
     }
 
-    public static String reverseWords(String s) {
-        String[] arr = s.split(" ");
-        StringBuilder ans = new StringBuilder();
+    public static double findMaxAverage(int[] nums, int k) {
+        int i = 0;
+        double sum = 0;
 
-        for (int i = arr.length-1; i >= 0; i--) {
-            if (arr[i].isEmpty()){
-                continue;
-            }
-            ans.append(arr[i]);
-            ans.append(" ");
+        for (int j = 0; j < k; j++) {
+            sum += nums[j];
         }
-        return ans.toString().strip();
+
+        double maxSum = sum;
+
+        while(i+k < nums.length){
+             sum -= nums[i];
+             if(i+k < nums.length){
+                 sum += nums[i+k];
+                 if(sum > maxSum){
+                     maxSum = sum;
+                 }
+             }
+             i++;
+        }
+        return maxSum/k;
     }
 
 }
