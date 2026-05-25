@@ -3,46 +3,40 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        int[] arr = {5};
-        System.out.println(maxVowels("leetcode", 3));
+        int[] arr = {2,1,-1};
+
+        System.out.println(pivotIndex(arr));
     }
 
-    public static int maxVowels(String s, int k) {
+    //lado direito menos o lado esquerdo dos prefixos
+
+    public static int pivotIndex(int[] nums) {
+        int n = nums.length;
+        int[] prefix = new int[n];
+
         int sum = 0;
-
-        for (int i = 0; i < k; i++) {
-            if(verifyVowel(s.charAt(i))){
-                sum += 1;
-            }
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            prefix[i] = sum;
         }
 
-        int maxSum = sum;
-        int i = 0;
+        for (int i = 0; i < n; i++) {
 
-        while(true){
-            if(i+k >= s.length()){
-                break;
+            int val = prefix[n-1] - prefix[i];
+
+            if(i == 0){
+                if(0 == val){
+                    return i;
+                }
+            }else {
+                if(prefix[i-1] == val){
+                    return i;
+                }
             }
 
-            if(verifyVowel(s.charAt(i))){
-                sum -= 1;
-            }
-            if(verifyVowel(s.charAt(i+k))){
-                sum += 1;
-            }
-
-            if(sum > maxSum){
-                maxSum = sum;
-            }
-
-            i++;
         }
 
-        return maxSum;
-    }
-
-    public static boolean verifyVowel(char str){
-        return str == 'a' || str == 'e' || str == 'i' || str == 'o' || str == 'u';
+        return -1;
     }
 
 }
