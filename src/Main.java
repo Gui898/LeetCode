@@ -3,32 +3,29 @@ public class Main {
     public static void main(String[] args) {
         int[] arr = {1,8,6,2,5,4,8,3,7};
 
-        System.out.println(maxArea(arr));
+        System.out.println(strStr("mississippi", "issip"));
     }
 
-    public static int maxArea(int[] height) {
-        int n = height.length;
-        int left = 0;
-        int right = n-1;
+    public static int strStr(String haystack, String needle) {
+        int need = 0;
 
-        int area = 0;
-        while (left < right){
-            int minor = Math.min(height[left], height[right]);
+        int n = haystack.length();
 
-            int current = (right - left) * minor;
-
-            if(height[left] < height[right]){
-                left++;
+        for (int i = 0; i < n; i++) {
+            if(haystack.charAt(i) == needle.charAt(need)){
+                need++;
+                if (need == needle.length()){
+                    return i - need + 1;
+                }
             }else{
-                right--;
-            }
-
-            if (current > area){
-                area = current;
+                if(need != 0 && i > 0){
+                    i -= need;
+                }
+                need = 0;
             }
         }
 
-        return area;
+        return -1;
     }
 
 }
