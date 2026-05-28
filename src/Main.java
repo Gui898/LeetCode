@@ -3,29 +3,24 @@ public class Main {
     public static void main(String[] args) {
         int[] arr = {1,8,6,2,5,4,8,3,7};
 
-        System.out.println(strStr("mississippi", "issip"));
+        System.out.println(numberOfSteps(123));
     }
 
-    public static int strStr(String haystack, String needle) {
-        int need = 0;
+    public static int numberOfSteps(int num) {
+        return helper(num, 0);
+    }
 
-        int n = haystack.length();
-
-        for (int i = 0; i < n; i++) {
-            if(haystack.charAt(i) == needle.charAt(need)){
-                need++;
-                if (need == needle.length()){
-                    return i - need + 1;
-                }
-            }else{
-                if(need != 0 && i > 0){
-                    i -= need;
-                }
-                need = 0;
-            }
+    public static int helper(int n, int counter){
+        if(n == 0 && counter != 0){
+            return counter-1;
+        }else if(n == 0 & counter == 0){
+            return 0;
         }
 
-        return -1;
-    }
+        if(n % 2 == 0){
+            return helper(n / 2, counter+1);
+        }
 
+        return helper(n / 2, counter+2);
+    }
 }
