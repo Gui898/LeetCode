@@ -7,42 +7,56 @@ public class Main {
         int[][] arr = {{0,0,0},
                        {0,0,0}};
 
-        System.out.println(letterCombinations("23"));
+        boolean[][] maze = {
+            {true, true, true},
+            {true, true, true},
+            {true, true, true}
+        };
+
+        int[][] pathMaze = new int[maze.length][maze[0].length];
+
+        path("", maze, 0, 0, pathMaze, 1);
     }
 
-    public static List<String> letterCombinations(String digits) {
-        return helper("", digits);
-    }
+    static void path(String p, boolean[][] maze, int r, int c, int[][] pathM, int step){
 
-    static List<String> helper(String p, String up){
-
-        List<String> val = new ArrayList<>();
-
-        if(up.isEmpty()){
-            val.add(p);
-            return val;
+        if(r == maze.length-1 && c == maze[0].length-1){
+            System.out.println(p);
+            pathM[r][c] = step;
+            for (int[] line : pathM){
+                for(int a : line){
+                    System.out.print(a + " ");
+                }
+                System.out.println();
+            }
+            return;
         }
 
-        int digit = (up.charAt(0) - '0') - 1;
-        int start = (digit-1) * 3;
-        int end = digit * 3;
-
-        if(digit == 6){
-            end += 1;
-        } else if (digit == 7) {
-            start += 1;
-            end += 1;
-        } else if (digit == 8) {
-            start += 1;
-            end += 2;
+        if(!maze[r][c]){
+            return;
         }
 
-        for (int i = start; i < end; i++) {
-            char ch = (char) ('a' + i);
-            val.addAll(helper(p + ch, up.substring(1)));
+        maze[r][c] = false;
+        pathM[r][c] = step;
+
+        if(r < maze.length - 1){
+            path(p + "D", maze, r + 1, c, pathM, step+1);
         }
 
-        return val;
+        if(c < maze.length - 1){
+            path(p + "R", maze, r, c + 1, pathM, step+1);
+        }
+
+        if(r > 0){
+            path(p + "U", maze, r - 1, c, pathM, step+1);
+        }
+
+        if(c > 0){
+            path(p + "L", maze, r, c - 1, pathM, step+1);
+        }
+
+        pathM[r][c] = 0;
+        maze[r][c] = true;
     }
 
 }
